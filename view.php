@@ -14,10 +14,8 @@
 define('NO_DEBUG_DISPLAY', true);
 
 require_once('../../config.php');
-require_once('../../lib/filelib.php');
 global $DB, $USER;
 $ids = $_POST['id_couse'];
-
 
 
 $fs = get_file_storage();
@@ -30,10 +28,8 @@ $temppath = make_request_directory().  $filename;
 $modules = $DB->get_records('course_modules', array('course' => $ids)); 
 $course_sections = $DB->get_records('course_sections', array('course' => $ids));
 
-//'topic' .section '-'. name
-$arr_folder=array();
+
 $sections=array();
-$cont_sect=0;
 foreach ($course_sections as $seq) {
     $s=$seq->sequence;
     
@@ -43,11 +39,11 @@ foreach ($course_sections as $seq) {
         $sequen=explode(',', $s);             
         foreach ($sequen as $da) {  
                   
-                if($DB->get_records('course_modules', array('module' => 8, 'id' => $da))){// folder en dodules es 8
+                if($DB->get_records('course_modules', array('module' => 8, 'id' => $da))){// folder en modules es 8
 	             $cm = get_coursemodule_from_id('folder', $da, 0, true, MUST_EXIST);
                 
                 $folder = $DB->get_record('folder', array('id' => $cm->instance), '*', MUST_EXIST);        
-                //$arr_folder[]=$folder;
+                
                 $dato = upload_file_info($da);
                 $data[$folder->name] = array('/' => $fs->get_file($dato[0]['contextid'], $dato[0]['component'], $dato[0]['filearea'], 0, '/', '.'));
                  
@@ -61,15 +57,8 @@ foreach ($course_sections as $seq) {
                           
         }
         
-        
-        if($seq->name != null){
-             $sections[$seq->name]=$data;       
-        }else{
-             $sections['section'. $seq->section]=$data;
-        }       
-        
-      
-        
+       $sections['sección '. $seq->section. ' - '. $seq->name]=$data;             
+               
     }
 }
 

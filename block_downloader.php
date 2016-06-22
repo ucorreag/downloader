@@ -37,7 +37,7 @@ class block_downloader extends block_base {
      * @return bool
      */
     function specialization() {
-        $this->title = "Downloader";
+        $this->title = 'Descargar';
     }
 	
 	function get_content() {
@@ -53,12 +53,12 @@ class block_downloader extends block_base {
 			$html_code_body = '<form name="block_downloader_form" id="block_downloader_form" action="../blocks/downloader/view.php" method="post" target="downloaderroom" onsubmit="">'.
 			 				
 							  '<input type="hidden" name="id_couse" value="'.$COURSE->id.'">'.
-							 '<input type="submit" value="descargar curso" name="downloader">'.
+							 '<input type="submit" value="Descargar" name="downloader">'.
 							 
 			 				'</form>';
 		}
 	    $this->content->text = $html_code_head.$html_code_body.'</div>';
-	    $this->content->footer = '<noscript><p style="font-size: 0.9em;">you dont have Javascript enabled which is required to run downloader-Mood (downloader-school) plugin</p></noscript>';
+	    $this->content->footer = '<noscript><p style="font-size: 0.9em;">you dont have Javascript enabled which is required to run downloader plugin</p></noscript>';
 			
 	    return $this->content;
 	}
