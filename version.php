@@ -25,9 +25,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version = 2016042211;    // The current module version (Date: YYYYMMDDXX)
-$plugin->requires  = 2015111600;        // Requires this Moodle version
+$plugin->version = 2016062211;    // The current module version (Date: YYYYMMDDXX)
+$plugin->requires  = 2013111600;        // Requires this Moodle version
 $plugin->cron      = 7200;               // Period for cron to check this module (secs)
 $plugin->component = 'block_downloader'; // To check on upgrade, that module sits in correct place
-$plugin->release    = '1.0.0';
+$plugin->release    = '1.0.0.1';
 $plugin->maturity   = MATURITY_STABLE;

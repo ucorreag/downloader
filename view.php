@@ -10,21 +10,17 @@
 * @e-mail ucorreag1@gmail.com
 */
 
+//defined('MOODLE_INTERNAL') || die();
+//define('NO_DEBUG_DISPLAY', true);
 
-define('NO_DEBUG_DISPLAY', true);
 
-require_once('../../config.php');
+require_once(__DIR__ . "/../../config.php");
 global $DB, $USER;
 $ids = $_POST['id_couse'];
 
-
 $fs = get_file_storage();
-$zipper   = get_file_packer('application/zip');
 $course_name=$DB->get_records('course', array('id' => $ids));
 
-
-$filename = clean_filename($course_name[$ids]->fullname) . '-'. date("d-M-Y"). ".zip";
-$temppath = make_request_directory().  $filename;
 $modules = $DB->get_records('course_modules', array('course' => $ids)); 
 $course_sections = $DB->get_records('course_sections', array('course' => $ids));
 
@@ -47,11 +43,14 @@ foreach ($course_sections as $seq) {
                 $dato = upload_file_info($da);
                 $data[$folder->name] = array('/' => $fs->get_file($dato[0]['contextid'], $dato[0]['component'], $dato[0]['filearea'], 0, '/', '.'));
                  
+                    
                 
                 }else{
                 $dato = upload_file_info($da);
                 if($dato != null){
-                $data[explode('.', $dato[0]['filename'])[0]] = array('/' => $fs->get_file($dato[0]['contextid'], $dato[0]['component'], $dato[0]['filearea'], 0, '/', '.'));
+                $data[explode('.', $dato[0]['filename'])[0]] = array('/' => $fs->get_file($dato[0]['contextid'], $dato[0]['component'], $dato[0]['filearea'], $dato[0]['itemid'], $dato[0]['filepath'], '.'));
+               
+                
                 }
                 } 
                           
@@ -77,8 +76,21 @@ foreach ($sections as $key0 => $section) {
 
 
 
+
+///////////////////////////////////////////////////
+$zipper   = get_file_packer('application/zip');
+
+$filename = clean_filename($course_name[$ids]->fullname) . '-'. date("d-M-Y"). ".zip";
+$temppath=$CFG->tempdir.'/'. $filename ;
+
+print($temppath);
 if ($zipper->archive_to_pathname($urls, $temppath)) {
-    send_temp_file($temppath,  $filename);
+    if(file_exists($temppath)){
+        header('Content-type:application/zip');
+        header('Content-Disposition:Attachtment; filename="'. $filename.'"');
+        readfile($temppath);
+        unlink($temppath);							
+	}
 }
 //---------------------------
 
@@ -97,7 +109,11 @@ function upload_file_info($cm) {
              $fil['contextid'] = $value->contextid;
              $fil['component'] = $value->component;
              $fil['filearea'] = $value->filearea;
-          
+             $fil['itemid'] = $value->itemid;
+             $fil['filepath'] = $value->filepath;
+             $fil['pathnamehash'] = $value->pathnamehash;
+             $fil['contenthash'] = $value->contenthash;
+             
              if ($fil['filename'] != '.' && $fil['filearea'] == 'content') {
                  $contents[] = $fil;
              }             
