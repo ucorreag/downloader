@@ -19,9 +19,9 @@
 /**
  * downloader block is a bridge for downloader-school platform and moodle
  *
- * @package    contrib
- * @subpackage block_downloader
- * @copyright  2014 Franck Chionna (infor@downloader-school.net)
+ * @package    block_downloader
+ * @package block_downloader
+ * @copyright  2016 UHO
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

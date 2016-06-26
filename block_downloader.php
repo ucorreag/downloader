@@ -37,11 +37,11 @@ class block_downloader extends block_base {
      * @return bool
      */
     function specialization() {
-        $this->title = 'Descargar';
+        $this->title = get_string('downloader', 'block_downloader');
     }
 	
 	function get_content() {
-	    global $CFG,$USER,$COURSE;
+	    global $CFG, $USER, $COURSE;
 	    if ($this->content !== NULL) {
 	        return $this->content;
 	    }
@@ -49,32 +49,18 @@ class block_downloader extends block_base {
 		$html_code_head = '<div style="width:100%; text-align:center; font-size: 0.9em; font-weight:bold">';		
 	    $this->content = new stdClass;
 		// check first if the user is logged
-		if($USER->id && $COURSE->id){
-			$html_code_body = '<form name="block_downloader_form" id="block_downloader_form" action="../blocks/downloader/view.php" method="post" target="downloaderroom" onsubmit="">'.
-			 				
-							  '<input type="hidden" name="id_couse" value="'.$COURSE->id.'">'.
-							 '<input type="submit" value="Descargar" name="downloader">'.
-							 
-			 				'</form>';
+		if($USER->id){
+			$html_code_body = '<form name="block_downloader_form" id="block_downloader_form" action="'. $CFG->wwwroot .
+			 '/blocks/downloader/view.php" method="post" target="downloaderroom">'.
+			 	'<input type="hidden" name="id_couse" value="' .$COURSE->id. '">'.
+				 '<input type="submit" value="'. get_string('downloader', 'block_downloader'). '" name="downloader">'.
+				'</form>';
 		}
 	    $this->content->text = $html_code_head.$html_code_body.'</div>';
 	    $this->content->footer = '<noscript><p style="font-size: 0.9em;">you dont have Javascript enabled which is required to run downloader plugin</p></noscript>';
 			
 	    return $this->content;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     function instance_allow_config(){
