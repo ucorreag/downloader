@@ -1,6 +1,7 @@
-Downloader block
+﻿Downloader block
 for Moodle 3.X.X
-Author: Grupo de Prácticas
+Author: Ulises Correa
+Description: Module of moodle to downloader files
 
 NOTE:
 To install:

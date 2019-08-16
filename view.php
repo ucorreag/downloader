@@ -57,7 +57,7 @@ function upload_file_info($cm) {
              $fil['itemid'] = $value->itemid;
              $fil['filepath'] = $value->filepath;
                          
-             if ($fil['filename'] != '.' && $fil['filearea'] == 'content') {
+             if ($fil['filename'] != '.') {
                  $contents[] = $fil;
              }             
          }
@@ -76,10 +76,10 @@ function get_files_sections($ids){
     $sections= get_data_files($course_sections);
 
     $urls=array();
-    foreach ($sections as $key0 => $section) {
-           foreach ($section as $key => $nombres) {
+    foreach ($sections as $key => $section) {
+           foreach ($section as $nombres) {
                 if (!in_array($nombres,$urls) ){
-                    $urls[$key0] = $nombres; 
+                    $urls[$key] = $nombres; 
                 }
             }
      }

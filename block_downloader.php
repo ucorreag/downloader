@@ -37,7 +37,7 @@ class block_downloader extends block_base {
      * @return bool
      */
     function specialization() {
-        $this->title = get_string('downloader', 'block_downloader');
+        $this->title = get_string('pluginname', 'block_downloader');
     }
 	
 	function get_content() {
@@ -53,7 +53,7 @@ class block_downloader extends block_base {
 			$html_code_body = '<form name="block_downloader_form" id="block_downloader_form" action="'. $CFG->wwwroot .
 			 '/blocks/downloader/view.php" method="post" target="downloaderroom">'.
 			 	'<input type="hidden" name="id_couse" value="' .$COURSE->id. '">'.
-				 '<input type="submit" value="'. get_string('downloader', 'block_downloader'). '" name="downloader">'.
+				 '<input type="submit" value="'. get_string('downloader', 'block_downloader'). '" name="downloader" title="' . get_string('download') . '">'.
 				'</form>';
 		}
 	    $this->content->text = $html_code_head.$html_code_body.'</div>';
